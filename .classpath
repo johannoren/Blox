@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="/BloxLibs/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/BloxLibs/GoogleAdMobAdsSdk-4.3.1.jar"/>
+	<classpathentry kind="lib" path="/BloxLibs/jackson-mini-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/BloxLibs/jpct_ae.jar"/>
+	<classpathentry kind="lib" path="/BloxLibs/libGoogleAnalytics.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
