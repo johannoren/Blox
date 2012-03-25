@@ -8,6 +8,12 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
 
+/**
+ * Handle Google AdMob advertising within Android app.
+ * Adds an ad to a linear layout resource. 
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class GoogleAdMobHandler {
 
 	public static AdView addAdsToLinearLayout(Activity activity, int index, int linearLayoutResource) {
@@ -16,8 +22,6 @@ public class GoogleAdMobHandler {
         String MY_AD_UNIT_ID = "a14ee4c32acdfe1";
         AdView adView = new AdView(activity, AdSize.BANNER, MY_AD_UNIT_ID);
 
-        // Lookup your LinearLayout assuming it’s been given
-        // the attribute android:id="@+id/mainLayout"
         LinearLayout layout = (LinearLayout) activity.findViewById(linearLayoutResource);
 
         // Add the adView to it
@@ -26,7 +30,6 @@ public class GoogleAdMobHandler {
         // Initiate a generic request to load it with an ad
         AdRequest adRequest = new AdRequest();
         adRequest.addTestDevice(AdRequest.TEST_EMULATOR);               // Emulator
-//        adRequest.addTestDevice("TEST_DEVICE_ID");                      // Test Android Device
         adView.loadAd(adRequest);
         
         return adView;
