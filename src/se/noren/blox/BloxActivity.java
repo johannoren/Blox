@@ -23,8 +23,10 @@ import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 
 /**
- * Menu stuff
- * @author Johan
+ * <p>Main menu activity of the game. Handle keeping track
+ * of username etc.</p>
+ * 
+ * @author Johan Norén - 25 mar 2012
  */
 public class BloxActivity extends Activity {
 	public static final String PREFS_NAME = "BloxPrefs";

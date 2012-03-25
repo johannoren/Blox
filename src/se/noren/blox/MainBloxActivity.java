@@ -12,9 +12,12 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
 /**
- * Splash intro
+ * <p>Activity that flips rendering to GL mode.
+ * From now on the game engine takes over keeping 
+ * view state. All views are rendered on a GLSurfaceView
+ * held by this activity.</p> 
  * 
- * @author Johan
+ * @author Johan Norén - 25 mar 2012
  */
 public class MainBloxActivity extends Activity {
 	private GLSurfaceView mGLSurfaceView;

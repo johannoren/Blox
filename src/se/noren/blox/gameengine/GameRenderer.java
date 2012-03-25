@@ -24,23 +24,23 @@ import com.threed.jpct.RGBColor;
 import com.threed.jpct.Texture;
 
 /**
- * Render a pair of tumbling cubes.
+ * Renderer against GL context.
+ * 
+ * @author Johan Norén - 25 mar 2012
  */
-
 public class GameRenderer {
 
 	private FrameBuffer fb = null;
 	private RGBColor back = new RGBColor(0, 0, 0);
 
 	public GameRenderer() {
-		System.out.println("In intro renderer");
         Texture.defaultToMipmapping(true);
 	}
 	
 	public void drawFrame(GameContext ctx, GameState state) {
 		fb.clear(back);
-		ctx.world.renderScene(fb);
-		ctx.world.draw(fb);
+		ctx.getWorld().renderScene(fb);
+		ctx.getWorld().draw(fb);
 		state.draw(fb);
 		fb.display();
 	}

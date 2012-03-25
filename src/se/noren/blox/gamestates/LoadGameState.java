@@ -23,10 +23,16 @@ import com.threed.jpct.World;
 import com.threed.jpct.util.BitmapHelper;
 import com.threed.jpct.util.MemoryHelper;
 
+/**
+ * Game state responsible for loading all resources
+ * for the GL world.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class LoadGameState extends GameState {
 
 	private static boolean isSetup = false;
-	private List<Block> blocks;
+	private List<Block>    blocks;
 	private List<Object3D> hammers;
 	
 	/*
@@ -44,22 +50,22 @@ public class LoadGameState extends GameState {
 
 	private void loadTexture(int resource, int dimension, String texName, GameContext context) {
 		Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(
-		          context.activity.getResources().getDrawable(resource)), dimension, dimension));
+		          context.getActivity().getResources().getDrawable(resource)), dimension, dimension));
 		TextureManager.getInstance().addTexture(texName, texture);
 	}
 	
 	public void setup(GameContext context) {
-		World world = context.world;
-		Light sun   = context.sun;
+		World world = context.getWorld();
+		Light sun   = context.getSun();
 
 		world.setAmbientLight(100, 100, 100);
 		sun.setIntensity(255, 255, 255);
 		
 		String[] separateLoadObjects = {"bluecube", "greencube", "redcube", "hammer"};
-		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.activity, world, R.raw.bluecube, 1.0f, separateLoadObjects);
-		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.activity, world, R.raw.redcube, 1.0f, separateLoadObjects);
-		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.activity, world, R.raw.greencube, 1.0f, separateLoadObjects);
-		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.activity, world, R.raw.hammer, 1.0f, separateLoadObjects);
+		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.getActivity(), world, R.raw.bluecube, 1.0f, separateLoadObjects);
+		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.getActivity(), world, R.raw.redcube, 1.0f, separateLoadObjects);
+		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.getActivity(), world, R.raw.greencube, 1.0f, separateLoadObjects);
+		ModelLoader.load3DSModelsAsSeparateWorldObjects(context.getActivity(), world, R.raw.hammer, 1.0f, separateLoadObjects);
 		
 		Camera cam = world.getCamera();
 		cam.setPosition(PlayGameState.SPACING * BloxConstants.DIM_X / 2.0f - 1, -PlayGameState.SPACING * BloxConstants.DIM_Y / 2.0f + 2, -27);
@@ -148,7 +154,7 @@ public class LoadGameState extends GameState {
 	 */
 	@Override
 	public void update(GameContext context, long dt) {
-		context.engine.changeGameState(new PlayGameState(context, 0, blocks, hammers, 0));
+		context.getEngine().changeGameState(new PlayGameState(context, 0, blocks, hammers, 0));
 	}
 
 }

@@ -9,6 +9,11 @@ import android.widget.Button;
 import com.google.ads.AdView;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
+/**
+ * Help view.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class HelpActivity extends Activity {
 	
 	 private AdView adView;
@@ -19,6 +24,9 @@ public class HelpActivity extends Activity {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.help);    	
     	
+    	/*
+    	 * Google Analytics tracking.
+    	 */
     	GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
     	tracker.trackPageView("/helppage");
     	tracker.dispatch();

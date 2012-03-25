@@ -13,6 +13,12 @@ import com.threed.jpct.Texture;
 import com.threed.jpct.TextureManager;
 import com.threed.jpct.util.BitmapHelper;
 
+/**
+ * Redraw a texture in real time with possibility to write text on 
+ * is as well.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class TextureRedrawer {
 
 	Bitmap bitmap = null;
@@ -95,11 +101,11 @@ public class TextureRedrawer {
 	
 	private void preDraw(GameContext context) {
 		Texture texture = TextureManager.getInstance().getTexture(textureName);
-		System.out.println("context.frameBuffer " + context.frameBuffer);
-		TextureManager.getInstance().unloadTexture(context.frameBuffer, texture);
+		System.out.println("context.frameBuffer " + context.getFrameBuffer());
+		TextureManager.getInstance().unloadTexture(context.getFrameBuffer(), texture);
 
 		bitmap = BitmapHelper.rescale(BitmapHelper.convert(
-				context.activity.getResources().getDrawable(resourceId)), width, height);
+				context.getActivity().getResources().getDrawable(resourceId)), width, height);
 		canvas = new Canvas(bitmap);
 		
 	}
@@ -113,7 +119,7 @@ public class TextureRedrawer {
 
 		Texture texture = new Texture(bitmap);
 		TextureManager.getInstance().replaceTexture(textureName, texture);
-		Object3D object = JPCTUtils.getObjectByName(objectName, context.world);
+		Object3D object = JPCTUtils.getObjectByName(objectName, context.getWorld());
 		object.setTexture(textureName);
 		object.build();
 		

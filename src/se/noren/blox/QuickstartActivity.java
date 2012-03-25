@@ -11,6 +11,11 @@ import android.widget.Button;
 import com.google.ads.AdView;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
+/**
+ * Activity used to give quick guide to the game.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class QuickstartActivity extends Activity {
 	
 	 private AdView adView;

@@ -10,9 +10,20 @@ import com.threed.jpct.Object3D;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.World;
 
+/**
+ * Load Blender objects.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class ModelLoader {
 
-	
+	/**
+	 * Load a 3DS object.
+	 * @param activity Android activity
+	 * @param resId Resource id
+	 * @param scale Rescale object?
+	 * @return Object found in resource bundle.
+	 */
 	public static Object3D load3DSModel(Activity activity, int resId,
 			float scale) {
 		InputStream object = activity.getResources().openRawResource(resId);

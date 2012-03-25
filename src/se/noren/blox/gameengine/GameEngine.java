@@ -12,6 +12,15 @@ import android.view.View.OnTouchListener;
 import com.threed.jpct.Light;
 import com.threed.jpct.World;
 
+/**
+ * Game engine keeps track of current game state.
+ * For each render pass, the current game state has opportunity
+ * to time step its system and render.
+ * 
+ * Game engine also keeps track of events and delegates to listeners.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class GameEngine implements OnTouchListener, GLSurfaceView.Renderer, GameEngineInterface {
 
 	GameContext  context      = null;
@@ -21,10 +30,10 @@ public class GameEngine implements OnTouchListener, GLSurfaceView.Renderer, Game
 	
 	public GameEngine(Activity activity) {
 		context = new GameContext();
-		context.activity = activity;
-		context.world = new World();
-		context.sun = new Light(context.world);
-		context.engine = this;
+		context.setActivity(activity);
+		context.setWorld(new World());
+		context.setSun(new Light(context.getWorld()));
+		context.setEngine(this);
 		renderer = new GameRenderer();
 	}
 	
@@ -35,7 +44,6 @@ public class GameEngine implements OnTouchListener, GLSurfaceView.Renderer, Game
 	 * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
 	 */
 	public boolean onTouch(View v, MotionEvent event) {
-		System.out.println("Event = " + event.getAction());
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			currentState.handleTouchEvent(context, event.getX(), event.getY());
 			return true;
@@ -52,7 +60,7 @@ public class GameEngine implements OnTouchListener, GLSurfaceView.Renderer, Game
 	public void changeGameState(GameState newState) {
 		System.out.println("Changing game state to " + newState.getClass().getName());
 		currentState = newState;
-		context.frameBuffer = renderer.getFrameBuffer();
+		context.setFrameBuffer(renderer.getFrameBuffer());
 		newState.initializeGameState(context);
 	}
 	
@@ -69,7 +77,7 @@ public class GameEngine implements OnTouchListener, GLSurfaceView.Renderer, Game
 		lastTime  = time;
 		currentState.update(context, dt);
 		renderer.drawFrame(context, currentState);
-		context.frameBuffer = renderer.getFrameBuffer();
+		context.setFrameBuffer(renderer.getFrameBuffer());
 	}
 
 	/*

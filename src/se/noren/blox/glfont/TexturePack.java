@@ -31,15 +31,6 @@ public class TexturePack {
 
 	private static final boolean DEBUG = false;
 
-	private static int lastPackId = 0;
-
-	private static synchronized int nextPackId() {
-		return lastPackId++;
-	}
-
-	private final int packId = nextPackId();
-	private final String textureName = "imagepack/" + packId;
-
 	private final Bitmap.Config bitmapConfig;
 	private boolean packed = false;
 	private final Point blittedSize = new Point();

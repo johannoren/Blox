@@ -7,14 +7,20 @@ import se.noren.blox.logic.BloxConstants;
 
 import com.threed.jpct.Object3D;
 
+/**
+ * Game state responsible for animating blocks
+ * falling after the block structure has changed.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class AnimateBlocksGameState extends GameState {
 
 	public final static long ANIM_LENGTH = 400;
 	
-	PlayGameState gameState = null;
-	long animStart = 0;
-	long currentAnimTime = 0;
-	private Block[][] matrix = null;
+	PlayGameState gameState       = null;
+	long          animStart       = 0;
+	long          currentAnimTime = 0;
+	Block[][]     matrix          = null;
 	
 	public AnimateBlocksGameState(GameContext context, PlayGameState gameState, Block[][] matrix) {
 		this.gameState = gameState;
@@ -31,18 +37,15 @@ public class AnimateBlocksGameState extends GameState {
 	public void update(GameContext context, long dt) {
 		currentAnimTime += dt;
 		float percentage = (currentAnimTime - animStart) / (float) ANIM_LENGTH;
-		
-		System.out.println("animation step: " + percentage);
 
 		if (currentAnimTime > animStart + ANIM_LENGTH) {
 			/*
 			 * Stop animation
 			 */
-			context.engine.changeGameState(gameState);
+			context.getEngine().changeGameState(gameState);
 			percentage = 1.0f;
 		}
 		
-		System.out.println("animation update, currentAnimTime " + currentAnimTime);
 		for (int i = 0; i < BloxConstants.DIM_X; i++)
 			for (int j = 0; j < BloxConstants.DIM_Y; j++) {
 				Block b = matrix[i][j];

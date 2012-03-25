@@ -17,11 +17,15 @@ import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 
+/**
+ * Main state during playing the game.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class PlayGameState extends GameState {
 
 	public static final float  SPACING = 2.2f;
 	
-	private GameContext    context;
 	private List<Block>    blocks;
 	private Block[][]      matrix = new Block[BloxConstants.DIM_X][BloxConstants.DIM_Y];
 	private List<Object3D> hammers;
@@ -30,7 +34,6 @@ public class PlayGameState extends GameState {
 	private int            score;
 	
 	public PlayGameState(GameContext context, int level, List<Block> blocks, List<Object3D> hammers, int score) {
-		this.context = context;
 		this.blocks  = blocks;
 		this.hammers = hammers;
 		this.score   = score;
@@ -47,7 +50,7 @@ public class PlayGameState extends GameState {
 	
 	@Override
 	public void initializeGameState(GameContext context) {
-		
+		// ...
 	}
 
 	private void updateSledgeHammers() {
@@ -61,9 +64,6 @@ public class PlayGameState extends GameState {
 	}
 	
 	private void randomizeMatrix() {
-		
-		System.out.println("Randomizing matrix!");
-		
 		List<Block> blocksCopy = new LinkedList<Block>();
 		for (int i = 0; i < blocks.size(); i++) {
 			blocksCopy.add(blocks.get(i));
@@ -125,7 +125,6 @@ public class PlayGameState extends GameState {
 	 * @param y
 	 */
 	private void decreaseColumn(int x, int y) {
-		System.out.println("decrease " + x + " " + y);
 		for (; y < BloxConstants.DIM_Y; y++) {
 			matrix[x][y - 1] = matrix[x][y];
 			matrix[x][y] = null;				
@@ -146,7 +145,6 @@ public class PlayGameState extends GameState {
 	}
 	
 	private void moveColumn(int fromx, int tox) {
-		System.out.println("moving column " + fromx + " to " + tox);
 		for (int i = 0; i < BloxConstants.DIM_Y; i++) {
 			matrix[tox][i] = matrix[fromx][i];
 			matrix[fromx][i] = null;
@@ -218,7 +216,6 @@ public class PlayGameState extends GameState {
 	@Override
 	public void draw(FrameBuffer fb) {
 		glFont.blitString(fb, "Score: " + score + " left = " + blockLeft(), 5, fb.getHeight() - 5, 10, RGBColor.WHITE);
-		//glFont.blitString(fb, "hello world", 200, 200, 10, RGBColor.RED);
 	}
 
 
@@ -236,14 +233,14 @@ public class PlayGameState extends GameState {
 	public void handleTouchEvent(GameContext context, float x, float y) {
 		Object3D touchedObject = touchedObject(context, x, y);
 		if (touchedObject != null) {
-			System.out.println("Touched object " + touchedObject);
 			Block block = (Block) touchedObject.getUserObject();
-			System.out.println("x = " + block.x + "  \ty = " + block.y + "  \t" + block.type);
 			
 			int removedBlocks = removeAdjacentBlocks(block.x, block.y, block.type);
 			normalizeMatrix();
 			
-			// Loose a life!
+			/*
+			 *  Loose a life!
+			 */
 			if (removedBlocks == 1) {
 				lifes--;
 				updateSledgeHammers();
@@ -251,17 +248,15 @@ public class PlayGameState extends GameState {
 				score += removedBlocks * 20;
 			}
 			
-			context.engine.changeGameState(new AnimateBlocksGameState(context, this, matrix));
+			/*
+			 * Animate falling blocks, so change game state. 
+			 */
+			context.getEngine().changeGameState(new AnimateBlocksGameState(context, this, matrix));
 			
 			if (blockLeft() == 0) {
 				randomizeMatrix();
 				updateSledgeHammers();
 			}
 		}
-
 	}
-
-		
-
-	
 }

@@ -8,6 +8,15 @@ import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Date;
 
+/**
+ * Util to log crash execptions to logfile on SD card.
+ * To be able to inspect stacktraces.
+ * 
+ * TODO: Should be extended to be able to send stacktraces
+ * to log server.
+ * 
+ * @author Johan Norén - 25 mar 2012
+ */
 public class CustomExceptionHandler implements UncaughtExceptionHandler {
 
     private UncaughtExceptionHandler defaultUEH;
